@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c11 -Isrc
 
 SRC = src/main.c src/scene.c
 OBJ = $(SRC:src/%.c=build/%.o)

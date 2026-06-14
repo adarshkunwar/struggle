@@ -1,6 +1,9 @@
 #ifndef TYPE_H
 #define TYPE_H
 
+#define SCREEN_WIDTH 100
+#define SCREEN_HEIGHT 10
+
 /* ── ANSI ── */
 #define RESET "\033[0m"
 #define DIM "\033[2m"
