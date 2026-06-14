@@ -25,22 +25,18 @@ int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
         Screen[i][j] = character;
       }
     }
-    printf("\n");
   }
 
   return 1;
 }
 
-int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-
-  Player player;
-  init_player(&player);
+int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH], Player *player) {
 
   while (1) {
-    printf("\033[2J\033[H");
+    printf("\033[H");
     for (int i = 0; i < SCREEN_HEIGHT; i++) {
       for (int j = 0; j < SCREEN_WIDTH; j++) {
-        if (player.pos.x == j && player.pos.y == i) {
+        if (player->pos.x == j && player->pos.y == i) {
           printf("@");
         } else if (i < SCREEN_HEIGHT / 3) {
           printf(GREY "%c" RESET, Screen[i][j]);
@@ -50,6 +46,7 @@ int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
       }
       printf("\n");
     }
+    fflush(stdout);
     usleep(16666);
   }
 

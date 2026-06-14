@@ -13,7 +13,7 @@ int main(void) {
   if (create_game(Screen) != 1) {
     perror("game couldn't be created");
   }
-  int test = render(Screen);
+  int test = render(Screen, &player);
   if (!test) {
     printf("error");
   }
