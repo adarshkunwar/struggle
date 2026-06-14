@@ -15,5 +15,6 @@
 #define PALE "\033[38;5;250m"
 #define BOLD "\033[1m"
 #define GREEN "\033[38;5;40m"
+#define BLUE "\033[38;5;33m"
 
 #endif // !TYPE_H
