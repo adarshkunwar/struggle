@@ -1,5 +1,7 @@
 #include "scene.h"
+#include "type.h"
 #include <stdio.h>
+#include <string.h>
 
 int create_field(void) {
 
@@ -13,7 +15,9 @@ int create_field(void) {
 
   char line[50];
   while (fgets(line, sizeof(line), f)) {
-    printf("%s", line);
+    line[strcspn(line, "\n")] = 0;
+    printf(GREEN "%s" RESET "\n", line);
+    fflush(stdout);
   }
 
   fclose(f);
