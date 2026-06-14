@@ -2,7 +2,7 @@
 #define TYPE_H
 
 #define SCREEN_WIDTH 100
-#define SCREEN_HEIGHT 10
+#define SCREEN_HEIGHT 20
 
 /* ── ANSI ── */
 #define RESET "\033[0m"

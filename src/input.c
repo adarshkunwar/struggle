@@ -1,4 +1,5 @@
 #include "input.h"
+#include <stdio.h>
 
 #include <fcntl.h>
 #include <termios.h>
@@ -8,6 +9,7 @@ static struct termios oldt;
 
 void init_input(void) {
   struct termios newt;
+  printf("\033[?25l");
 
   tcgetattr(STDIN_FILENO, &oldt);
 
@@ -19,7 +21,10 @@ void init_input(void) {
   fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
 }
 
-void cleanup_input(void) { tcsetattr(STDIN_FILENO, TCSANOW, &oldt); }
+void cleanup_input(void) {
+  printf("\033[?25h");
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+}
 
 int get_key(void) {
   char c;
