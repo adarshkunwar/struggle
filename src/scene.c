@@ -16,7 +16,7 @@ int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
   for (int i = 0; i < SCREEN_HEIGHT; i++) {
     for (int j = 0; j < SCREEN_WIDTH; j++) {
-      if (i < SCREEN_HEIGHT / 3) {
+      if (i <= SCREEN_HEIGHT - GROUND_HEIGHT) {
         char character = sample_terrain_char(character_options, 3, sky_density);
         Screen[i][j] = character;
       } else {

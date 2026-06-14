@@ -1,3 +1,4 @@
+#include "type.h"
 #define _POSIX_C_SOURCE 200809L
 #define _DEFAULT_SOURCE
 #include "input.h"
@@ -32,7 +33,7 @@ int main(void) {
         player.pos.x++;
       break;
     case 'w':
-      if (player.pos.y > 0)
+      if (player.pos.y > SCREEN_HEIGHT - GROUND_HEIGHT + 1)
         player.pos.y--;
       break;
     case 's':
