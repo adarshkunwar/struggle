@@ -1,7 +1,7 @@
 CC = gcc 
 CFLAGS = -Wall -Wextra -std=c11 -Isrc
 
-SRC = src/main.c src/scene.c src/player.c src/utils.c
+SRC = src/main.c src/scene.c src/player.c src/utils.c src/input.c
 OBJ = $(SRC:src/%.c=build/%.o)
 
 TARGET = build/game

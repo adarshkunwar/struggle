@@ -31,24 +31,21 @@ int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 }
 
 int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH], Player *player) {
-
-  while (1) {
-    printf("\033[H");
-    for (int i = 0; i < SCREEN_HEIGHT; i++) {
-      for (int j = 0; j < SCREEN_WIDTH; j++) {
-        if (player->pos.x == j && player->pos.y == i) {
-          printf("@");
-        } else if (i < SCREEN_HEIGHT / 3) {
-          printf(GREY "%c" RESET, Screen[i][j]);
-        } else {
-          printf(GREEN "%c" RESET, Screen[i][j]);
-        }
+  // No while loop here — just draw one frame and return
+  printf("\033[2H");
+  for (int i = 0; i < SCREEN_HEIGHT; i++) {
+    for (int j = 0; j < SCREEN_WIDTH; j++) {
+      printf("\033[%d;%dH", i + 1, j + 1); // move to exact row, col
+      if (player->pos.x == j && player->pos.y == i) {
+        printf("@");
+      } else if (i < SCREEN_HEIGHT / 3) {
+        printf(GREY "%c" RESET, Screen[i][j]);
+      } else {
+        printf(GREEN "%c" RESET, Screen[i][j]);
       }
-      printf("\n");
     }
-    fflush(stdout);
-    usleep(16666);
   }
-
+  fflush(stdout);
+  fflush(stdout);
   return 1;
 }
