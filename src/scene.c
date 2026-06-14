@@ -1,5 +1,4 @@
 #define _DEFAULT_SOURCE
-
 #include "scene.h"
 #include "player.h"
 #include "type.h"
@@ -13,7 +12,6 @@
 char character_options[] = {'.', ',', '`'};
 
 int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-
   for (int i = 0; i < SCREEN_HEIGHT; i++) {
     for (int j = 0; j < SCREEN_WIDTH; j++) {
       if (i <= SCREEN_HEIGHT - GROUND_HEIGHT) {
@@ -26,18 +24,25 @@ int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
       }
     }
   }
-
   return 1;
 }
 
 int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH], Player *player) {
-  // No while loop here — just draw one frame and return
   printf("\033[2H");
+
   for (int i = 0; i < SCREEN_HEIGHT; i++) {
     for (int j = 0; j < SCREEN_WIDTH; j++) {
-      printf("\033[%d;%dH", i + 1, j + 1); // move to exact row, col
-      if (player->pos.x == j && player->pos.y == i) {
-        printf("@");
+      printf("\033[%d;%dH", i + 1, j + 1);
+
+      int sprite_col = j - (player->pos.x - 1);
+      int sprite_row = i - player->pos.y;
+
+      int inside_sprite = sprite_row >= 0 && sprite_row < 3 &&
+                          sprite_col >= 0 && sprite_col < 3;
+
+      if (inside_sprite &&
+          player->current_sprite[sprite_row][sprite_col] != ' ') {
+        printf("%c", player->current_sprite[sprite_row][sprite_col]);
       } else if (i < SCREEN_HEIGHT / 3) {
         printf(GREY "%c" RESET, Screen[i][j]);
       } else {
@@ -45,7 +50,7 @@ int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH], Player *player) {
       }
     }
   }
-  fflush(stdout);
+
   fflush(stdout);
   return 1;
 }

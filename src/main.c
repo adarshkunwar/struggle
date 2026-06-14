@@ -23,27 +23,31 @@ int main(void) {
   signal(SIGINT, handle_sigint);
   while (1) {
     int key = get_key();
+    int dx = 0, dy = 0;
+
     switch (key) {
     case 'a':
       if (player.pos.x > 0)
-        player.pos.x--;
+        dx = -1;
       break;
     case 'd':
       if (player.pos.x < SCREEN_WIDTH - 1)
-        player.pos.x++;
+        dx = 1;
       break;
     case 'w':
       if (player.pos.y > SCREEN_HEIGHT - GROUND_HEIGHT + 1)
-        player.pos.y--;
+        dy = -1;
       break;
     case 's':
       if (player.pos.y < SCREEN_HEIGHT - 1)
-        player.pos.y++;
+        dy = 1;
       break;
     case 'q':
       cleanup_input();
       return 0;
     }
+
+    move_player(&player, dx, dy); // called every frame, dx/dy are 0 when no key
     render(Screen, &player);
     usleep(33333);
   }
