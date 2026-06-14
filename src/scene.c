@@ -53,7 +53,5 @@ int render(void) {
   generate_sky(SCREEN_WIDTH, SCREEN_HEIGHT);
   generate_grass(SCREEN_WIDTH, SCREEN_HEIGHT / 3, SCREEN_HEIGHT * 2 / 3,
                  &player);
-
-  printf("%d %d\n", player.pos.x, player.pos.y);
   return 1;
 }
