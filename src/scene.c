@@ -1,57 +1,57 @@
+#define _DEFAULT_SOURCE
+
 #include "scene.h"
 #include "player.h"
 #include "type.h"
+#include "utils.h"
 #include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-char grass_chars[] = {'.', ',', '`'};
+#define sky_density 20
+#define grass_density 80
 
-char random_grass(int density) {
-  int r = rand() % 100;
-  if (r < density) {
-    return grass_chars[rand() % 3];
-  }
-  return ' ';
-}
+char character_options[] = {'.', ',', '`'};
 
-void generate_sky(int width, int height) {
-  for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++) {
-      int density = 10;
-      char c = random_grass(density);
-      printf(GREY "%c" RESET, c);
-    }
-    printf("\n");
-  }
-}
+int create_game(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
-void generate_grass(int width, int start_y, int height, Player *player) {
-  for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++) {
-
-      int world_y = start_y + y;
-
-      int density = 100;
-      char c = random_grass(density);
-
-      if (player->pos.x == x && player->pos.y == world_y) {
-        printf("@");
+  for (int i = 0; i < SCREEN_HEIGHT; i++) {
+    for (int j = 0; j < SCREEN_WIDTH; j++) {
+      if (i < SCREEN_HEIGHT / 3) {
+        char character = sample_terrain_char(character_options, 3, sky_density);
+        Screen[i][j] = character;
       } else {
-        printf(GREEN "%c" RESET, c);
+        char character =
+            sample_terrain_char(character_options, 3, grass_density);
+        Screen[i][j] = character;
       }
     }
     printf("\n");
   }
+
+  return 1;
 }
 
-int render(void) {
+int render(char Screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
   Player player;
-
   init_player(&player);
 
-  generate_sky(SCREEN_WIDTH, SCREEN_HEIGHT);
-  generate_grass(SCREEN_WIDTH, SCREEN_HEIGHT / 3, SCREEN_HEIGHT * 2 / 3,
-                 &player);
+  while (1) {
+    printf("\033[2J\033[H");
+    for (int i = 0; i < SCREEN_HEIGHT; i++) {
+      for (int j = 0; j < SCREEN_WIDTH; j++) {
+        if (player.pos.x == j && player.pos.y == i) {
+          printf("@");
+        } else if (i < SCREEN_HEIGHT / 3) {
+          printf(GREY "%c" RESET, Screen[i][j]);
+        } else {
+          printf(GREEN "%c" RESET, Screen[i][j]);
+        }
+      }
+      printf("\n");
+    }
+    usleep(16666);
+  }
+
   return 1;
 }
