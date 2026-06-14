@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main(void) {
-  int test = create_field();
+  int test = render();
   if (!test) {
     printf("error");
   }

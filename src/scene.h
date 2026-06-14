@@ -1,6 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-int create_field(void);
+int render(void);
 
 #endif // !SCENE_H
