@@ -4,6 +4,7 @@
 #define SCREEN_WIDTH 100
 #define SCREEN_HEIGHT 10
 #define GROUND_HEIGHT 8
+#define AVAILABLE_HEIGHT SCREEN_HEIGHT - GROUND_HEIGHT + 1
 
 /* ── ANSI ── */
 #define RESET "\033[0m"
@@ -17,5 +18,7 @@
 #define BOLD "\033[1m"
 #define GREEN "\033[38;5;40m"
 #define BLUE "\033[38;5;33m"
+
+typedef struct { int x; int y; } Position;
 
 #endif // !TYPE_H

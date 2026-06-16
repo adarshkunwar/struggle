@@ -1,23 +1,35 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-extern const char *idle_sprite_enemy[];
-extern const char *animation_frame_1[];
-extern const char *animation_frame_2[];
-extern const char *animation_frame_3[];
+#include "type.h"
+typedef struct { int will; int max_will;} Stats;
 
-typedef struct { int x; int y; } Position;
-typedef struct { int will; int san; int max_will; int max_san; } Stats;
+typedef enum {
+  ENEMY_SKELETON = 0,
+  ENEMY_GHOST,
+  ENEMY_TYPE_COUNT,
+} EnemyType;
 
 typedef struct {
   Position pos;
   Stats stats;
   const char **current_sprite;
+  const char **frames[3];
   int walk_tick;
+  EnemyType type;
+  const char *name;
 } Enemy;
 
+typedef struct {
+  const char *name;
+  int base_will;
+  int will_variance;
+  const char **idle;
+  const char **frames[3];
+} EnemyTemplate;
+
 int fight(void);
-void create_enemy(Enemy *e);
+Enemy create_enemy(EnemyType type);
 void animate(Enemy *e);
 
 #endif

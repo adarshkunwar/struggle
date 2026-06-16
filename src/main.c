@@ -35,7 +35,7 @@ int main(void) {
         dx = 1;
       break;
     case 'w':
-      if (player.pos.y > SCREEN_HEIGHT - GROUND_HEIGHT + 1)
+      if (player.pos.y > AVAILABLE_HEIGHT)
         dy = -1;
       break;
     case 's':
